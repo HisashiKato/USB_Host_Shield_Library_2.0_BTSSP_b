@@ -1,38 +1,33 @@
-# USB_Host_Shield_Library_2.0_BTSSP
+# USB_Host_Shield_Library_2.0_BTSSP_b
 The code is released under the GNU General Public License.
 
 ## Summary
 This library is based on the USB Host Shield Library 2.0 with modifications to support Secure Simple Pairing on Bluetooth to use the Microsoft Game Controller (for Xbox One S/Windows MODEL 1708).
 
 ## 概要
-このライブラリは、USB Host Shield Library 2.0 を元にして、Microsoftゲームコントローラー（Xbox One S/Windows用 MODEL 1708）が繋がるように、ライブラリのBluetoothの部分を Secure Simple Pairing 対応に改造したものです。
-USB_Host_Shield_2.0については下記を参照してください。
+これは過去に USB Host Shield Library 2.0 を元にして Microsoftゲームコントローラー（Xbox One S/Windows用 MODEL 1708）が繋がるように、ライブラリのBluetoothの部分を Secure Simple Pairing 対応に改造した USB_Host_Shield_Library_2.0_BTSSP を、更に改造した作りかけのライブラリです。
+USB_Host_Shield_2.0 と USB_Host_Shield_Library_2.0_BTSSP については下記を参照してください。
 
 USB_Host_Shield_2.0 リポジトリ  
 <http://github.com/felis/USB_Host_Shield_2.0>  
 プロジェクトサイト   
 <https://chome.nerpa.tech/arduino_usb_host_shield_projects/>
 
-元のライブラリがSecure Simple Pairing(SSP)に対応する前に、自分で改造したライブラリです。今は、元のライブラリも SSP に対応しています。
+USB_Host_Shield_Library_2.0_BTSSP リポジトリ  
+<https://github.com/HisashiKato/USB_Host_Shield_Library_2.0_BTSSP>  
 
-このライブラリを作成した経緯は以下のブログ記事にまとめてあります。  
-<http://kato-h.cocolog-nifty.com/khweblog/2020/09/post-c93f3c.html>  
-
-ここでは、その自分で改造したライブラリを残しておいて、なおかつ自分の勉強と練習のために、さらに好き勝手に手を加えています。
-元のライブラリや前の改造ライブラリを書き変えまくって、かなり大きな変更を加えているので、互換性等はあまりないです。
-
+次の機能を追加する準備のために大幅な変更を加えたので、別リポジトリにしました。不具合やバグ、エラーが増えています。特に Disconnect でエラーが出ます。
 動作保証はしません。ユーザーサポートもしません。使用は自己責任で。何か問題があっても自分で何とかしてください。
 
-商用のプログラムのコード等は書いたことが無い素人で初心者なので、多分、色々と間違っていると思います。
+商用のプログラムのコード等は書いたことが無い素人で初心者なので、絶対に色々と間違っています。
 このライブラリのソースコードを、プロの人やC++の熟練者が見ると「なんでこんなコードの書き方をするんだよ！」と怒りさえ覚える人がいるかもしれません。
 もし居ましたら、このライブラリをフォークして、添削や清書をして頂ければと思います。
 
 オープンソースなので、ライセンスの範囲内で自由に使ってやってください。
 
-ライブラリの名前を「USB Host Shield Library 2.0 BTXBOX」から「USB Host Shield Library 2.0 BTSSP」に変更しました。
 
-USB_Host_Shield_Library_2.0_BTSSP リポジトリ  
-<https://github.com/HisashiKato/USB_Host_Shield_Library_2.0_BTSSP>  
+USB_Host_Shield_Library_2.0_BTSSP_b リポジトリ  
+<https://github.com/HisashiKato/USB_Host_Shield_Library_2.0_BTSSP_b>  
 
 　  
 
@@ -49,9 +44,9 @@ USB_Host_Shield_Library_2.0_BTSSP リポジトリ
 USB Host Library Rev.2.0 BTSSPは、Arduino IDEで使用できます。
     
 1. Code の Download ZIP 、または下記URLから、ライブラリのZIPをダウンロードします。  
-<https://github.com/HisashiKato/USB_Host_Shield_Library_2.0_BTSSP/archive/master.zip>  
+<https://github.com/HisashiKato/USB_Host_Shield_Library_2.0_BTSSP_b/archive/master.zip>  
    
-2. Arduino IDE を起動して、スケッチ > ライブラリをインクルード > .ZIP形式のライブラリをインストール で、ダウンロードした USB_Host_Shield_Library_2.0_BTSSP-master.zip を指定します。  
+2. Arduino IDE を起動して、スケッチ > ライブラリをインクルード > .ZIP形式のライブラリをインストール で、ダウンロードした USB_Host_Shield_Library_2.0_BTSSP_b-master.zip を指定します。  
    
 3. Arduino IDE に、「ライブラリが追加されました。「ライブラリをインクルード」メニューを確認してください。」と表示されれば成功。
 
@@ -63,18 +58,9 @@ USB Host Library Rev.2.0 BTSSPは、Arduino IDEで使用できます。
 ### ライブラリの使用方法
 先ずは、元の USB Host Library Rev.2.0 のライブラリの使用方法を読んでください。
 
-仕様が大幅に変わりました。具体的な使い方は、スケッチ例を参照してください。
+基本的には USB_Host_Shield_Library_2.0_BTSSP と同じです。具体的な使い方は、スケッチ例を参照してください。
 
-このライブラリのスケッチ例では、Arduino の内部のフラッシュ領域にデータを書き込み読み出すEEPROMライブラリを使用しています。注意してください。具体的にはペアリングに成功したデバイスのBDアドレス(Bluetooth Device Address) 6byte、それに続けてペアリング時に生成されたリンクキー 16byte を、アドレスの0番地から書き込んで、再接続時に読みに行っています。（このフラッシュ領域のデータは、スケッチを書き変えても変更されません）
-
-本家の USB Host Library Rev.2.0 では今のところ出来ないSSPのリンクキーの保存が出来るので、再接続等が確実になっています。
-
-元のライブラリを改造して、ここで最初に公開していたライブラリ内の、Bluetoothに関係する関数では、その関数の内部でArduinoのEEPROMライブラリを使用して、リンクキー等の保存の処理をしていましたが、そのBluetoothの関数の内部にあったリンクキー等の保存の処理を、関数から外に出して、ユーザースケッチ側で処理をするように変更したので、EEPROMライブラリが使えないArduino互換ボードでもスケッチを工夫して、どこかの不揮発性メモリにリンクキー等を保存する仕組みを用意することが出来れば、SSPでの接続が行えるようになると思います。
-
-このライブラリは、BluetoothのSSP接続にだけ対応しています。バイナリの容量を極力減らすために、従来のPS3コントローラー,Wiiリモコン等との接続や、旧来のPINコードを用いた接続は外しました。USB有線での接続にも対応していません。それらは元の USB Host Library Rev.2.0 ライブラリを使用してください。
-
-※注意：元のライブラリ "USB Host Library Rev.2.0" を使用するときは、このライブラリを削除（USB_Host_Shield_Library_2.0_BTSSP-masterのフォルダを消去）してください。重複して、衝突します。（衝突しました。）逆に、このライブラリを使用するときは、本家のライブラリを削除してください。めんどくさいですが。
-   
+  
    
 
 ## 対応コントローラー
@@ -94,15 +80,15 @@ https://support.xbox.com/en-US/help/hardware-network/accessories/controller-firm
 
 しかし、4.8.1923.0 に戻す方法は見つかりませんでした。
 
-そこで、3.1.1221.0 のボタンの読み取りを追加しました。3.1.1221.0 ではチェックしましたが、4.8.1923.0 はチェックしていません。
+そこで、3.1.1221.0 のボタンの読み取りを追加しました。3.1.1221.0 ではチェックをしましたが、4.8.1923.0 ではチェックをしていません。
 
 ### Nintendo Switch Pro コントローラー
 
-簡易版です。サブコマンドの送信を組み込んだので、振動を暫定的に入れてみました。ジャイロは対応するか未定です（2021/04/04）
+簡易版です。サブコマンドの送信を組み込んだので、振動を暫定的に入れてみました。ジャイロは対応するか未定です。Disconnect でエラーが出ます。
 
 ### SONY DUALSHOCK 4 コントローラー
 
-オリジナルの USB Host Library 2.0 の、DUALSHOCK 4 の関数群を移植しました。
+オリジナルの USB Host Library 2.0 の、DUALSHOCK 4 の関数群を移植しました。Disconnect でエラーが出ます。
 
 ### Bluetooth キーボード,マウス
 
