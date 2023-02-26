@@ -477,7 +477,7 @@ void BTDSSP::HCI_task(){
         Notify(PSTR("\r\nHCI_task"), 0x80);
 #endif
 */
-        if (flagHciInitProcessComplete != true){//in Init Prosses
+        if (flagHciInitProcessComplete != true){//in Init Process
 
                 btStatus = BT_INIT;
 
